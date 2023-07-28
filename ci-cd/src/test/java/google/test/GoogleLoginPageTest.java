@@ -1,4 +1,7 @@
 package google.test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,8 +18,6 @@ import org.openqa.selenium.io.FileHandler;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -28,6 +29,7 @@ public class GoogleLoginPageTest {
 	private ExtentReports extent;
 	private ExtentTest test;
 	//commit
+	
 	@BeforeTest
 	public void setUp() {
 		// Set up WebDriver
@@ -51,10 +53,11 @@ public class GoogleLoginPageTest {
 	}
 
 
+	
 	@AfterTest
 	public void tearDown() throws InterruptedException {
 
-
+		
 
 		if (driver != null) {
 			if (test.getStatus() == Status.FAIL || test.getStatus() == Status.PASS ) {
