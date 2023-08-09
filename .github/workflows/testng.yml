@@ -23,7 +23,7 @@ jobs:
         distribution: 'adopt'  # Specify the distribution (e.g., adopt, openjdk)
         
     - name: Build and Run Tests
-      working-directory: /ci-cd/pom.xml
+      working-directory: /ci-cd
       run: mvn clean test
 
     - name: Post TestNG Results
