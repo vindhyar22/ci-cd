@@ -3,7 +3,7 @@ name: TestNG Tests
 on:
   push:
     branches:
-      - master  # Replace with the appropriate branch name
+      - main  # Replace with the appropriate branch name
 
 jobs:
   test:
@@ -12,14 +12,18 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.sha }}
+        path: .  # Specify the correct path to your project
 
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: 11
-        distribution: 'adopt'
-
+        java-version: '11'  # Specify the desired Java version
+        distribution: 'adopt'  # Specify the distribution (e.g., adopt, openjdk)
+        
     - name: Build and Run Tests
+      working-directory: .
       run: mvn clean test
 
     - name: Post TestNG Results
