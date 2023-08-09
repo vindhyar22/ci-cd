@@ -1,31 +1,17 @@
-name: TestNG Tests
-   
-on:
-  push:
-    branches:
-      - master  # Replace with the appropriate branch name
+name: Java CI
+
+on: [push]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-       
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-      with:
-          ref: ${{ github.sha }}
- 
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'  # Specify the desired Java version
-        distribution: 'adopt'  # Specify the distribution (e.g., adopt, openjdk)
-        
-    - name: Build and Run Tests
-      run: mvn clean test
 
-    - name: Post TestNG Results
-      uses: dorny/test-reporter@v1
-      with:
-        name: TestNG Results
-        path: test-output/emailable-report.html
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots package
