@@ -1,0 +1,33 @@
+name: TestNG Tests
+   
+on:
+  push:
+    branches:
+      - main  # Replace with the appropriate branch name
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+       
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.sha }}
+        
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'  # Specify the desired Java version
+        distribution: 'adopt'  # Specify the distribution (e.g., adopt, openjdk)
+        
+    - name: Build and Run Tests
+      working-directory: .
+      run: mvn clean test
+
+    - name: Post TestNG Results
+      uses: dorny/test-reporter@v1
+      with:
+        name: TestNG Results
+        path: test-output/emailable-report.html
